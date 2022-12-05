@@ -1,7 +1,6 @@
 Spaceship apollo = new Spaceship();
 Star[] nightSky = new Star[100];
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
-Asteroid bob = new Asteroid();
 int n = 100; //number of asteroids
 
 public void setup() {
@@ -9,7 +8,6 @@ public void setup() {
   for(int i = 0; i<nightSky.length; i++){
     nightSky[i] = new Star();
   }
-  
   for(int i = 0; i<100; i++){
     asteroids.add(new Asteroid());
   }
@@ -21,7 +19,6 @@ public void draw() {
   }
   apollo.show();
   apollo.move();
-  
   for(int i = 0; i<n; i++){
     asteroids.get(i).move();
     asteroids.get(i).show();
