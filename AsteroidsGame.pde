@@ -1,7 +1,7 @@
 Spaceship apollo = new Spaceship();
 Star[] nightSky = new Star[100];
 ArrayList <Asteroid> asteroids = new ArrayList <Asteroid>();
-int n = 100; //number of asteroids
+ArrayList <Bullet> shots = new ArrayList <Bullet>();
 
 public void setup() {
   size(800, 800);
@@ -19,13 +19,26 @@ public void draw() {
   }
   apollo.show();
   apollo.move();
-  for(int i = 0; i<n; i++){
+  for(int i = 0; i<asteroids.size(); i++){
     asteroids.get(i).move();
     asteroids.get(i).show();
     float d = dist((float)apollo.getCenterX(), (float)apollo.getCenterY(), (float)asteroids.get(i).getCenterX(), (float)asteroids.get(i).getCenterY());
     if(d<30){
       asteroids.remove(i);
-      n--;
+    }
+  }
+  for(int f = 0; f<shots.size(); f++){
+    shots.get(f).move();
+    shots.get(f).show();
+  }
+  for(int i = 0; i<asteroids.size(); i++){
+    for(int j = 0; j<shots.size(); j++){
+      float e = dist((float)shots.get(j).getCenterX(), (float)shots.get(j).getCenterY(), (float)asteroids.get(i).getCenterX(), (float)asteroids.get(i).getCenterY());
+      if(e<10){
+        asteroids.remove(i);
+        shots.remove(j);
+        break;
+      }
     }
   }
 }
@@ -39,13 +52,16 @@ public void keyPressed() {
   if(key == 'a'){
     apollo.turn(-10);
   }
-  if(key == 'd'){
+  else if(key == 'd'){
     apollo.turn(10);
   }
-  if(key == 'w'){
+  else if(key == 'w'){
     apollo.accelerate(1);
   }
-  if(key == 's'){
+  else if(key == 's'){
     apollo.accelerate(-1);
+  }
+  else if(key == ' '){
+    shots.add(new Bullet(apollo));
   }
 }
